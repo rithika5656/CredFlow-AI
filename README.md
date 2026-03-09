@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CrediSight AI -- Corporate Credit Decisioning Platform
 
 A full-stack AI-powered system for banks to evaluate corporate loan applications and generate Credit Appraisal Memos (CAM).
@@ -177,3 +178,6 @@ Tables are auto-created on backend startup.
 
 - **Applicant:** Sign up, create loan applications, upload documents, track status, download CAM
 - **Bank Officer:** View all applications, run analysis, review risk scores, approve/reject, generate CAM reports
+=======
+# CredFlow-AI
+>>>>>>> 4a9c4cffc9a41c1b51e2996dca068d06a8f28c91
