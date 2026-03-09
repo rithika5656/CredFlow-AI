@@ -8,6 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
+  const [role, setRole] = useState('applicant');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,8 @@ export default function Login() {
     try {
       const { data } = await loginUser({ email, password });
       login(data.access_token, data.user);
-      navigate(data.user.role === 'bank_officer' ? '/officer/dashboard' : '/applicant/dashboard');
+      // Use selected role for redirect
+      navigate(role === 'bank_officer' ? '/officer/dashboard' : '/applicant/dashboard');
     } catch (err) {
       setError(err.response?.data?.detail || 'Login failed. Please check your credentials.');
     } finally {
@@ -103,6 +105,18 @@ export default function Login() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Role Switch */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Account Type</label>
+                <select
+                  className="auth-input"
+                  value={role}
+                  onChange={e => setRole(e.target.value)}
+                >
+                  <option value="applicant">Applicant</option>
+                  <option value="bank_officer">Bank Officer</option>
+                </select>
+              </div>
               {/* Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">Email address</label>
