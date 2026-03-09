@@ -13,6 +13,7 @@ import ApplicationDetail from './pages/applicant/ApplicationDetail';
 import OfficerDashboard from './pages/officer/Dashboard';
 import OfficerApplications from './pages/officer/Applications';
 import OfficerApplicationDetail from './pages/officer/ApplicationDetail';
+import RiskDashboard from './pages/officer/RiskDashboard';
 
 function RootRedirect() {
   const { user } = useAuth();
@@ -54,6 +55,9 @@ export default function App() {
           } />
           <Route path="/officer/applications/:id" element={
             <ProtectedRoute role="bank_officer"><OfficerApplicationDetail /></ProtectedRoute>
+          } />
+          <Route path="/officer/risk-intelligence" element={
+            <ProtectedRoute role="bank_officer"><RiskDashboard /></ProtectedRoute>
           } />
 
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -10,6 +10,7 @@ from app.api.applications import router as applications_router
 from app.api.documents import router as documents_router
 from app.api.dashboard import router as dashboard_router
 from app.api.analysis import router as analysis_router
+from app.api.risk_intelligence import router as risk_intelligence_router
 
 
 @asynccontextmanager
@@ -28,7 +29,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=["http://localhost:3000", "http://localhost:3001", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -39,6 +40,7 @@ app.include_router(applications_router)
 app.include_router(documents_router)
 app.include_router(dashboard_router)
 app.include_router(analysis_router)
+app.include_router(risk_intelligence_router)
 
 
 @app.get("/api/health")

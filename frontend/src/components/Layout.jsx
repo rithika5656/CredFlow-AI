@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
-  LayoutDashboard, FileText, Upload, BarChart3, LogOut, Shield, Building2,
+  LayoutDashboard, FileText, Upload, BarChart3, LogOut, Shield, Building2, Brain,
 } from 'lucide-react';
 
 const applicantLinks = [
@@ -13,6 +13,7 @@ const applicantLinks = [
 const officerLinks = [
   { to: '/officer/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/officer/applications', label: 'Applications', icon: FileText },
+  { to: '/officer/risk-intelligence', label: 'Risk Intelligence', icon: Brain },
 ];
 
 export default function Layout({ children }) {

@@ -12,6 +12,7 @@ import {
   ArrowLeft, Play, Download, CheckCircle2, XCircle,
   FileText, Shield, AlertTriangle, TrendingUp, Building2,
 } from 'lucide-react';
+import RiskIntelligencePanel from '../../components/RiskIntelligencePanel';
 
 export default function OfficerApplicationDetail() {
   const { id } = useParams();
@@ -390,6 +391,14 @@ export default function OfficerApplicationDetail() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Advanced Risk Intelligence Section */}
+      <div className="mt-8">
+        <RiskIntelligencePanel
+          applicationId={application.id}
+          existingData={application.advanced_risk_analysis || null}
+        />
       </div>
     </Layout>
   );

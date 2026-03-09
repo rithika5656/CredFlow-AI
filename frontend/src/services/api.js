@@ -58,4 +58,12 @@ export const generateCAM = (id, format = 'pdf') =>
 export const decideApplication = (id, decision) =>
   api.post(`/analysis/${id}/decide?decision=${encodeURIComponent(decision)}`);
 
+// Risk Intelligence
+export const runRiskIntelligence = (id, params) =>
+  api.post(`/risk-intelligence/${id}/analyze`, params);
+export const getRiskIntelligence = (id) =>
+  api.get(`/risk-intelligence/${id}`);
+export const getRiskDashboardSummary = () =>
+  api.get('/risk-intelligence/dashboard/summary');
+
 export default api;

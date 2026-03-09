@@ -40,6 +40,7 @@ class LoanApplicationResponse(BaseModel):
     research_insights: Optional[Any]
     five_cs_evaluation: Optional[Any]
     ai_recommendation: Optional[Any]
+    advanced_risk_analysis: Optional[Any]
     cam_report_path: Optional[str]
     created_at: datetime
     updated_at: datetime

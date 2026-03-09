@@ -40,6 +40,7 @@ class LoanApplication(Base):
     five_cs_evaluation = Column(JSON, nullable=True)
     ai_recommendation = Column(JSON, nullable=True)
     cam_report_path = Column(String(500), nullable=True)
+    advanced_risk_analysis = Column(JSON, nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
