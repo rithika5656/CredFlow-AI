@@ -5,8 +5,10 @@ import Layout from '../../components/Layout';
 import { LoadingSpinner, formatCurrency } from '../../components/UI';
 import {
   Brain, TrendingUp, Shield, BarChart3, Target,
-  AlertTriangle, ArrowRight, Building2,
+  AlertTriangle, ArrowRight, Building2, Zap,
 } from 'lucide-react';
+import WhatIfSimulator from '../../components/WhatIfSimulator';
+
 
 function MiniBar({ value, max = 100, color = 'bg-primary-600' }) {
   return (
@@ -242,6 +244,28 @@ export default function RiskDashboard() {
           </div>
         </>
       )}
+
+      {/* What-If Risk Simulation Module */}
+      <div className="mt-8">
+        <div className="flex items-center gap-3 mb-4">
+          <Zap className="h-5 w-5 text-yellow-500" />
+          <div>
+            <h2 className="text-lg font-bold text-gray-900">What-If Risk Simulator</h2>
+            <p className="text-sm text-gray-500">Select an application from the table above and open its detail page to run a targeted simulation, or use the standalone simulator here.</p>
+          </div>
+        </div>
+        {d.applications.length > 0 ? (
+          <WhatIfSimulator
+            applicationId={d.applications[0].id}
+            loanAmount={d.applications[0].requested_loan_amount}
+          />
+        ) : (
+          <div className="card p-8 text-center text-gray-400">
+            <Zap className="w-8 h-8 mx-auto mb-2 opacity-20" />
+            <p className="text-sm">Run Risk Intelligence on at least one application to enable the simulator here.</p>
+          </div>
+        )}
+      </div>
     </Layout>
   );
 }

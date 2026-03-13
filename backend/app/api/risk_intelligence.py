@@ -12,6 +12,7 @@ from app.core.security import require_role
 from app.models.user import User, UserRole
 from app.models.application import LoanApplication
 from app.services.advanced_risk import run_advanced_risk_analysis
+from app.services.whatif_simulation import run_whatif_simulation
 
 router = APIRouter(prefix="/api/risk-intelligence", tags=["Risk Intelligence"])
 
@@ -174,3 +175,40 @@ async def get_risk_intelligence(
         raise HTTPException(status_code=404, detail="Advanced risk analysis not yet performed")
 
     return {"application_id": app.id, **app.advanced_risk_analysis}
+
+
+class WhatIfInput(BaseModel):
+    monthly_income: float = Field(default=200000, ge=0, description="Borrower monthly income in INR")
+    monthly_expenses: float = Field(default=80000, ge=0, description="Monthly living expenses in INR")
+    existing_emi: float = Field(default=30000, ge=0, description="Existing EMI obligations in INR")
+    savings_balance: float = Field(default=500000, ge=0, description="Current savings balance in INR")
+    interest_rate: float = Field(default=10.0, ge=0, le=40, description="Annual interest rate %")
+    loan_tenure_years: int = Field(default=10, ge=1, le=30, description="Loan tenure in years")
+
+
+@router.post("/{application_id}/simulate")
+async def whatif_simulation(
+    application_id: int,
+    params: WhatIfInput,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(UserRole.BANK_OFFICER)),
+):
+    """Run What-If stress scenario simulation for a loan application."""
+    result = await db.execute(
+        select(LoanApplication).where(LoanApplication.id == application_id)
+    )
+    app = result.scalar_one_or_none()
+    if not app:
+        raise HTTPException(status_code=404, detail="Application not found")
+
+    simulation = run_whatif_simulation(
+        monthly_income=params.monthly_income,
+        monthly_expenses=params.monthly_expenses,
+        existing_emi=params.existing_emi,
+        savings_balance=params.savings_balance,
+        loan_amount=app.requested_loan_amount,
+        interest_rate=params.interest_rate,
+        loan_tenure_years=params.loan_tenure_years,
+    )
+
+    return {"application_id": app.id, "loan_amount": app.requested_loan_amount, **simulation}

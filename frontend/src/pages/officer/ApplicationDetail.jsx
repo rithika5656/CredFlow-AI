@@ -13,6 +13,7 @@ import {
   FileText, Shield, AlertTriangle, TrendingUp, Building2,
 } from 'lucide-react';
 import RiskIntelligencePanel from '../../components/RiskIntelligencePanel';
+import WhatIfSimulator from '../../components/WhatIfSimulator';
 
 export default function OfficerApplicationDetail() {
   const { id } = useParams();
@@ -398,6 +399,14 @@ export default function OfficerApplicationDetail() {
         <RiskIntelligencePanel
           applicationId={application.id}
           existingData={application.advanced_risk_analysis || null}
+        />
+      </div>
+
+      {/* What-If Risk Simulation Section */}
+      <div className="mt-6">
+        <WhatIfSimulator
+          applicationId={application.id}
+          loanAmount={application.requested_loan_amount}
         />
       </div>
     </Layout>

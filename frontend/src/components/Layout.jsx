@@ -36,8 +36,8 @@ export default function Layout({ children }) {
           <div className="flex items-center gap-2">
             <Shield className="h-6 w-6 text-primary-300" />
             <div>
-              <h1 className="text-lg font-bold leading-tight">CrediSight AI</h1>
-              <p className="text-xs text-primary-400">Credit Decisioning</p>
+              <h1 className="text-lg font-bold leading-tight">Intelli-Credit</h1>
+              <p className="text-xs text-primary-400">Credit Decisioning Platform</p>
             </div>
           </div>
         </div>

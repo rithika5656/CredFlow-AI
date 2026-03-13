@@ -29,10 +29,16 @@ export default function ApplicantDashboard() {
       {/* Section 2: Primary Action */}
       <div className="flex items-center justify-between mb-6">
         <div />
-        <Link to="/applicant/apply" className="btn-primary flex items-center gap-2 text-base px-6 py-2">
-          <Plus className="h-5 w-5" />
-          New Loan Application
-        </Link>
+        <div className="flex gap-3">
+          <Link to="/applicant/verify" className="btn-secondary flex items-center gap-2 text-base px-6 py-2">
+            <CheckCircle2 className="h-5 w-5 text-primary-600" />
+            Verify Identity
+          </Link>
+          <Link to="/applicant/apply" className="btn-primary flex items-center gap-2 text-base px-6 py-2">
+            <Plus className="h-5 w-5" />
+            New Loan Application
+          </Link>
+        </div>
       </div>
 
       {/* Section 3: My Applications */}

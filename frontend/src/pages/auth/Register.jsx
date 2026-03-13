@@ -53,14 +53,15 @@ export default function Register() {
               <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
                 <Shield className="h-5 w-5 text-primary-300" />
               </div>
-              <span className="text-white text-lg font-semibold tracking-tight">CrediSight AI</span>
+              <span className="text-white text-lg font-semibold tracking-tight">Intelli-Credit</span>
             </div>
           </div>
 
           <div className="max-w-md">
-            <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
+            <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
               Start Your Credit Journey
             </h1>
+            <p className="text-primary-300/70 text-base font-medium mb-4 tracking-wide">Intelli-Credit — Credit Decisioning Platform</p>
             <p className="text-primary-200/80 text-base leading-relaxed mb-8">
               Register as a loan applicant to submit applications and track their status,
               or join as a bank officer to review, analyze, and decide on corporate credit requests.
@@ -91,7 +92,7 @@ export default function Register() {
             <div className="inline-flex items-center justify-center w-12 h-12 bg-[#0A1F44] rounded-xl mb-3">
               <Shield className="h-6 w-6 text-white" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">CrediSight AI</h1>
+            <h1 className="text-xl font-bold text-gray-900">Intelli-Credit</h1>
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 p-8 sm:p-10">

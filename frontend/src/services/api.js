@@ -66,5 +66,7 @@ export const getRiskIntelligence = (id) =>
   api.get(`/risk-intelligence/${id}`);
 export const getRiskDashboardSummary = () =>
   api.get('/risk-intelligence/dashboard/summary');
+export const runWhatIfSimulation = (id, params) =>
+  api.post(`/risk-intelligence/${id}/simulate`, params);
 
 export default api;

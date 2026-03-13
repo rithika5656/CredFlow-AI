@@ -9,6 +9,7 @@ import ApplicantDashboard from './pages/applicant/Dashboard';
 import LoanApplicationForm from './pages/applicant/LoanApplicationForm';
 import MyApplications from './pages/applicant/MyApplications';
 import ApplicationDetail from './pages/applicant/ApplicationDetail';
+import IdentityVerification from './pages/applicant/IdentityVerification';
 
 import OfficerDashboard from './pages/officer/Dashboard';
 import OfficerApplications from './pages/officer/Applications';
@@ -44,6 +45,9 @@ export default function App() {
           } />
           <Route path="/applicant/applications/:id" element={
             <ProtectedRoute role="applicant"><ApplicationDetail /></ProtectedRoute>
+          } />
+          <Route path="/applicant/verify" element={
+            <ProtectedRoute role="applicant"><IdentityVerification /></ProtectedRoute>
           } />
 
           {/* Bank Officer Routes */}
