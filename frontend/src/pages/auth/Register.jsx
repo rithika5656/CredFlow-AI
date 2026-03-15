@@ -39,197 +39,132 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex" style={{ background: '#050e1f' }}>
       {/* Left Panel — Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden auth-left-panel">
-        <div className="auth-geo auth-geo-1" />
-        <div className="auth-geo auth-geo-2" />
-        <div className="auth-geo auth-geo-3" />
-        <div className="auth-geo auth-geo-4" />
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-[#071020]" style={{ borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-blue-600/30 blur-[120px]" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[100px]" />
+        </div>
 
-        <div className="relative z-10 flex flex-col justify-between w-full p-12 xl:p-16">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-                <Shield className="h-5 w-5 text-primary-300" />
-              </div>
-              <span className="text-white text-lg font-semibold tracking-tight">Intelli-Credit</span>
+        <div className="relative z-10 flex flex-col justify-between w-full p-16 xl:p-20">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.5)]">
+              <Shield className="h-6 w-6 text-white" />
             </div>
+            <span className="text-white text-2xl font-black tracking-tighter uppercase">Intelli-Credit</span>
           </div>
 
           <div className="max-w-md">
-            <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
-              Start Your Credit Journey
+            <h1 className="text-5xl xl:text-6xl font-black text-white leading-tight mb-8 tracking-tighter uppercase">
+              Start Your <br/>Credit Journey
             </h1>
-            <p className="text-primary-300/70 text-base font-medium mb-4 tracking-wide">Intelli-Credit — Credit Decisioning Platform</p>
-            <p className="text-primary-200/80 text-base leading-relaxed mb-8">
-              Register as a loan applicant to submit applications and track their status,
-              or join as a bank officer to review, analyze, and decide on corporate credit requests.
+            <p className="text-blue-400 text-sm font-black tracking-[0.2em] mb-6 uppercase">Unified Underwriting Platform</p>
+            <p className="text-blue-200/60 text-lg leading-relaxed mb-12 font-medium">
+              Join the future of corporate credit decisioning. Seamless intake, real-time risk intelligence, and automated appraisal memos.
             </p>
-            <div className="flex flex-col gap-3">
+            <div className="space-y-4">
               {[
-                'Submit and track loan applications',
-                'AI-powered document analysis',
-                'Real-time application status updates',
+                'Strategic Loan Decisioning',
+                'AI-Driven Risk Matrices',
+                'Global Compliance Integration',
               ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0" />
-                  <span className="text-primary-100/90 text-sm">{item}</span>
+                <div key={item} className="flex items-center gap-4 group">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:scale-150 transition-transform" />
+                  <span className="text-white/60 text-sm font-bold tracking-tight group-hover:text-white transition-colors uppercase">{item}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <p className="text-primary-300/50 text-xs tracking-wide uppercase">Secure Access Portal</p>
+          <p className="text-white/20 text-[10px] tracking-[0.3em] font-black uppercase">Secure Enclave v4.2</p>
         </div>
       </div>
 
       {/* Right Panel — Register Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-12">
-        <div className="w-full max-w-md">
-          {/* Mobile-only branding */}
-          <div className="lg:hidden text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-[#0A1F44] rounded-xl mb-3">
-              <Shield className="h-6 w-6 text-white" />
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">Intelli-Credit</h1>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 p-8 sm:p-10">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Create an account</h2>
-              <p className="text-gray-500 text-sm mt-1">Fill in your details to get started</p>
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 relative">
+        <div className="w-full max-w-md relative z-10">
+          <div className="rounded-3xl p-10 sm:p-12 shadow-2xl relative overflow-hidden" 
+            style={{ background: '#0d1c35', border: '1px solid rgba(255,255,255,0.08)' }}>
+            
+            <div className="mb-10 text-center sm:text-left">
+              <h2 className="text-3xl font-black text-white tracking-tight uppercase">Create Account</h2>
+              <p className="text-sm font-bold mt-2" style={{ color: '#4c7dd4' }}>Initialize your corporate credit identity</p>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-6">
+              <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold px-5 py-4 rounded-2xl mb-8 animate-in fade-in slide-in-from-top-2">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Full Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
-                <div className="relative">
-                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    name="full_name"
-                    required
-                    className="auth-input pl-10"
-                    value={form.full_name}
-                    onChange={handleChange}
-                    placeholder="John Doe"
-                  />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {[
+                { label: 'Full Name', name: 'full_name', type: 'text', icon: User, placeholder: 'Strategic Officer / Founder' },
+                { label: 'Email Node', name: 'email', type: 'email', icon: Mail, placeholder: 'name@enterprise.com' },
+                { label: 'Security Key', name: 'password', type: 'password', icon: Lock, placeholder: '••••••••' },
+                { label: 'Corporate Entity', name: 'company_name', type: 'text', icon: Building2, placeholder: 'Acme Corp Pvt Ltd' }
+              ].map(f => (
+                <div key={f.name}>
+                  <label className="block text-[10px] font-black text-white/40 uppercase tracking-widest mb-2 ml-1">{f.label}</label>
+                  <div className="relative group">
+                    <f.icon className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-white/20 group-focus-within:text-blue-500 transition-colors" />
+                    <input
+                      type={f.type === 'password' && showPassword ? 'text' : f.type}
+                      name={f.name}
+                      required
+                      className="w-full bg-white/5 border border-white/5 rounded-2xl pl-12 pr-4 py-3.5 text-sm font-bold text-white outline-none transition-all placeholder:text-white/10 focus:border-blue-500 focus:bg-white/10"
+                      value={form[f.name]}
+                      onChange={handleChange}
+                      placeholder={f.placeholder}
+                      minLength={f.type === 'password' ? 8 : undefined}
+                    />
+                    {f.type === 'password' && (
+                       <button
+                         type="button"
+                         onClick={() => setShowPassword(!showPassword)}
+                         className="absolute right-4 top-1/2 -translate-y-1/2 text-white/10 hover:text-white transition-colors"
+                       >
+                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                       </button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              ))}
 
-              {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Email address</label>
-                <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="auth-input pl-10"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="you@company.com"
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    required
-                    className="auth-input pl-10 pr-10"
-                    value={form.password}
-                    onChange={handleChange}
-                    placeholder="Min 8 characters"
-                    minLength={8}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                    tabIndex={-1}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Company Name */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Company Name</label>
-                <div className="relative">
-                  <Building2 className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input
-                    type="text"
-                    name="company_name"
-                    className="auth-input pl-10"
-                    value={form.company_name}
-                    onChange={handleChange}
-                    placeholder="Your company name"
-                  />
-                </div>
-              </div>
-
-              {/* Account Type */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Account Type</label>
+                <label className="block text-[10px] font-black text-white/40 uppercase tracking-widest mb-2 ml-1">Account Protocol</label>
                 <select
                   name="role"
-                  className="auth-input"
+                  className="w-full bg-white/5 border border-white/5 rounded-2xl px-4 py-3.5 text-sm font-black text-white outline-none appearance-none cursor-pointer focus:border-blue-500 h-[52px]"
                   value={form.role}
                   onChange={handleChange}
                 >
-                  <option value="applicant">Loan Applicant</option>
-                  <option value="bank_officer">Bank Officer</option>
+                  <option value="applicant" style={{ background: '#0d1c35' }}>LOAN APPLICANT</option>
+                  <option value="bank_officer" style={{ background: '#0d1c35' }}>BANK OFFICER</option>
                 </select>
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="auth-btn w-full flex items-center justify-center gap-2 mt-2"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-3 mt-4 shadow-xl active:scale-[0.98]"
+                style={{ background: 'linear-gradient(135deg, #2563eb, #1e40af)', boxShadow: '0 8px 30px rgba(37,99,235,0.4)' }}
               >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Creating account...
-                  </span>
-                ) : (
-                  <>
-                    Create Account
-                    <ArrowRight className="h-4 w-4" />
-                  </>
-                )}
+                {loading ? 'Initializing Interface...' : 'Authorize Account'}
+                {!loading && <ArrowRight className="h-4 w-4" />}
               </button>
             </form>
 
-            <p className="text-center text-sm text-gray-500 mt-8">
-              Already have an account?{' '}
-              <Link to="/login" className="font-semibold text-[#0A1F44] hover:text-[#152D5B] transition-colors">
+            <p className="text-center text-[10px] font-black uppercase tracking-widest text-[#4c7dd4]/40 mt-10">
+              Existing identity?{' '}
+              <Link to="/login" className="text-white hover:text-blue-400 transition-colors border-b border-white/10 hover:border-blue-400/50 pb-0.5 ml-1">
                 Sign in
               </Link>
             </p>
           </div>
 
-          <p className="text-center text-xs text-gray-400 mt-6 tracking-wide uppercase">Secure Access Portal</p>
+          <p className="text-center text-[9px] font-black text-white/10 mt-8 tracking-[0.3em] uppercase">Secure Access Portal · TLS 1.3 ENCRYPTED</p>
         </div>
       </div>
     </div>

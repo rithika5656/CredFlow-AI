@@ -1,12 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  @apply bg-gray-50 text-gray-900;
+  background: #071020;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(37,99,235,0.3);
+  color: #ffffff;
+}
+
+/* ── Custom Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.05);
+  border-radius: 99px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.1); }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 /* ── Auth Pages ─────────────────────────────────────────── */
@@ -56,18 +80,25 @@ body {
 /* ── Shared Components ──────────────────────────────────── */
 
 @layer components {
+  /* ── Buttons ── */
   .btn-primary {
-    @apply bg-primary-800 text-white px-4 py-2 rounded-lg font-medium
-      hover:bg-primary-700 transition-colors duration-150
-      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    @apply text-white px-4 py-2 rounded-lg font-bold
+      transition-opacity duration-150
+      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
       disabled:opacity-50 disabled:cursor-not-allowed;
+    box-shadow: 0 4px 14px rgba(37,99,235,0.45);
   }
+  .btn-primary:hover:not(:disabled) { opacity: 0.9; }
 
   .btn-secondary {
-    @apply bg-white text-gray-700 px-4 py-2 rounded-lg font-medium border border-gray-300
-      hover:bg-gray-50 transition-colors duration-150
-      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    @apply text-white px-4 py-2 rounded-lg font-medium
+      transition-all duration-150
+      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
   }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
   .btn-danger {
     @apply bg-red-600 text-white px-4 py-2 rounded-lg font-medium
@@ -75,45 +106,61 @@ body {
       focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
   }
 
+  /* ── Form input ── */
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
-      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
-      placeholder:text-gray-400;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #ffffff;
+    @apply w-full px-3 py-2 rounded-lg text-sm
+      focus:outline-none focus:ring-2 focus:ring-blue-500
+      placeholder:text-blue-300/40;
   }
 
+  /* ── Card ── */
   .card {
-    @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+    background: #0d1c35;
+    border: 1px solid rgba(255,255,255,0.07);
+    @apply rounded-[32px] shadow-2xl;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease;
   }
+  .card:hover { border-color: rgba(255,255,255,0.15); }
 
+  /* ── Badges (dark-aware) ── */
   .badge-success {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+    background: rgba(16,185,129,0.15); color: #6ee7b7;
+    border: 1px solid rgba(16,185,129,0.3);
   }
-
   .badge-warning {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+    background: rgba(245,158,11,0.15); color: #fcd34d;
+    border: 1px solid rgba(245,158,11,0.3);
   }
-
   .badge-danger {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+    background: rgba(239,68,68,0.15); color: #fca5a5;
+    border: 1px solid rgba(239,68,68,0.3);
   }
-
   .badge-info {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+    background: rgba(37,99,235,0.2); color: #93c5fd;
+    border: 1px solid rgba(37,99,235,0.35);
   }
-
   .badge-neutral {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold;
+    background: rgba(255,255,255,0.08); color: #94a3b8;
+    border: 1px solid rgba(255,255,255,0.1);
   }
 }
 
 /* ── Identity Verification Premium Styles ───────────────── */
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(13, 28, 53, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 .scanner-line {

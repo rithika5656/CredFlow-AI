@@ -13,6 +13,7 @@ from app.models.user import User, UserRole
 from app.models.application import LoanApplication
 from app.services.advanced_risk import run_advanced_risk_analysis
 from app.services.whatif_simulation import run_whatif_simulation
+from app.services.digital_twin_simulator import generate_digital_twin
 
 router = APIRouter(prefix="/api/risk-intelligence", tags=["Risk Intelligence"])
 
@@ -212,3 +213,41 @@ async def whatif_simulation(
     )
 
     return {"application_id": app.id, "loan_amount": app.requested_loan_amount, **simulation}
+
+
+class DigitalTwinInput(BaseModel):
+    monthly_income: float = Field(default=200000, ge=0)
+    monthly_expenses: float = Field(default=80000, ge=0)
+    existing_emi: float = Field(default=30000, ge=0)
+    savings_balance: float = Field(default=500000, ge=0)
+    interest_rate: float = Field(default=10.0, ge=0, le=40)
+    loan_tenure_years: int = Field(default=10, ge=1, le=30)
+
+
+@router.post("/{application_id}/digital-twin")
+async def digital_twin_simulation(
+    application_id: int,
+    params: DigitalTwinInput,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(UserRole.BANK_OFFICER)),
+):
+    """Generate Digital Twin and simulate 5-year stability."""
+    result = await db.execute(
+        select(LoanApplication).where(LoanApplication.id == application_id)
+    )
+    app = result.scalar_one_or_none()
+    if not app:
+        raise HTTPException(status_code=404, detail="Application not found")
+
+    dt_result = generate_digital_twin(
+        applicant_name=app.company_name or f"Applicant #{app.id}",
+        monthly_income=params.monthly_income,
+        existing_emi=params.existing_emi,
+        monthly_expenses=params.monthly_expenses,
+        savings_balance=params.savings_balance,
+        loan_amount=app.requested_loan_amount,
+        interest_rate=params.interest_rate,
+        loan_tenure_years=params.loan_tenure_years,
+    )
+
+    return {"application_id": app.id, **dt_result}

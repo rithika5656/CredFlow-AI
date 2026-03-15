@@ -2,16 +2,14 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { loginUser } from '../../services/api';
-import { Shield, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowRight, Eye, EyeOff, CheckCircle2, ChevronRight } from 'lucide-react';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
-  const [role, setRole] = useState('applicant');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [role, setRole] = useState('bank_officer');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,193 +17,175 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
-      const { data } = await loginUser({ email, password });
+      const { data } = await loginUser({ email: form.email, password: form.password });
       login(data.access_token, data.user);
-      // Use selected role for redirect
-      navigate(role === 'bank_officer' ? '/officer/dashboard' : '/applicant/dashboard');
+      if (data.user.role === 'bank_officer') navigate('/officer/dashboard');
+      else navigate('/applicant/dashboard');
     } catch (err) {
-      setError(err.response?.data?.detail || 'Login failed. Please check your credentials.');
+      setError(err.response?.data?.detail || 'Authentication failed. Please check credentials.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Panel — Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden auth-left-panel">
-        {/* Geometric background shapes */}
-        <div className="auth-geo auth-geo-1" />
-        <div className="auth-geo auth-geo-2" />
-        <div className="auth-geo auth-geo-3" />
-        <div className="auth-geo auth-geo-4" />
+    <div className="min-h-screen flex bg-[#050e1f]" style={{ fontFamily: "'Inter', sans-serif" }}>
+      
+      {/* ══ LEFT PANEL — Branding ══ */}
+      <div className="hidden lg:flex lg:w-3/5 relative overflow-hidden bg-[#071020]" style={{ borderRight: '1px solid rgba(255,255,255,0.05)' }}>
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] rounded-full bg-blue-600/20 blur-[130px] animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-600/10 blur-[110px]" />
+        </div>
 
-        <div className="relative z-10 flex flex-col justify-between w-full p-12 xl:p-16">
-          {/* Top — Logo & Title */}
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-                <Shield className="h-5 w-5 text-primary-300" />
-              </div>
-              <span className="text-white text-lg font-semibold tracking-tight">Intelli-Credit</span>
+        <div className="relative z-10 flex flex-col justify-between w-full p-20 xl:p-28">
+          <div className="flex items-center gap-4">
+            <div className="w-14 h-14 rounded-[22px] bg-blue-600 flex items-center justify-center shadow-[0_0_30px_rgba(37,99,235,0.6)] border border-white/10">
+              <Shield className="h-7 w-7 text-white" />
             </div>
+            <span className="text-white text-3xl font-black tracking-tighter uppercase leading-none">Intelli-Credit</span>
           </div>
 
-          {/* Centre — Description */}
-          <div className="max-w-md">
-            <h1 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
-              Intelli-Credit
+          <div className="max-w-xl">
+            <div className="flex items-center gap-3 mb-6">
+               <div className="w-10 h-[2px] bg-blue-500 rounded-full" />
+               <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em]">Next-Gen Underwriting OS</p>
+            </div>
+            <h1 className="text-6xl xl:text-7xl font-black text-white leading-[0.9] mb-10 tracking-tighter uppercase">
+              Engineered <br/><span className="text-blue-500">Capital</span> Trust
             </h1>
-            <p className="text-primary-300/70 text-base font-medium mb-4 tracking-wide">Credit Decisioning Platform</p>
-            <p className="text-primary-200/80 text-base leading-relaxed mb-8">
-              AI-powered credit evaluation, risk scoring, and automated CAM report
-              generation — empowering banks with faster, data-driven lending decisions.
+            <p className="text-blue-100/40 text-lg leading-relaxed mb-12 font-medium max-w-md">
+              The institutional standard for automated credit appraisal and real-time risk intelligence.
             </p>
-            <div className="flex flex-col gap-3">
+            
+            <div className="space-y-6">
               {[
-                'Five Cs credit risk scoring (0 – 100)',
-                'Automated financial cross-verification',
-                'One-click CAM report generation',
+                'Strategic Loan Decisioning',
+                'AI-Driven Risk Matrices',
+                'Global Compliance Integration',
               ].map((item) => (
-                <div key={item} className="flex items-center gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary-400 shrink-0" />
-                  <span className="text-primary-100/90 text-sm">{item}</span>
+                <div key={item} className="flex items-center gap-4 group cursor-default">
+                  <div className="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-[0_0_10px_#2563eb] transition-transform group-hover:scale-150" />
+                  <span className="text-white/60 text-[11px] font-black uppercase tracking-[0.2em] group-hover:text-white transition-colors">
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Bottom — Footer */}
-          <p className="text-primary-300/50 text-xs tracking-wide uppercase">Secure Access Portal</p>
+          <div className="flex items-center gap-8 opacity-20">
+             <p className="text-[9px] font-black tracking-[0.4em] uppercase text-white">SECURE ENCLAVE V4.2</p>
+             <div className="h-[1px] flex-1 bg-white/20" />
+             <p className="text-[9px] font-black tracking-[0.4em] uppercase text-white">TLS 1.3 ENCRYPTED</p>
+          </div>
         </div>
       </div>
 
-      {/* Right Panel — Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-12">
-        <div className="w-full max-w-md">
-          {/* Mobile-only branding */}
-          <div className="lg:hidden text-center mb-8">
-            <div className="inline-flex items-center justify-center w-12 h-12 bg-[#0A1F44] rounded-xl mb-3">
-              <Shield className="h-6 w-6 text-white" />
+      {/* ══ RIGHT PANEL — Login Form ══ */}
+      <div className="w-full lg:w-2/5 flex items-center justify-center p-8 sm:p-16 relative">
+        <div className="w-full max-w-md relative z-10">
+          <div className="card p-12 sm:p-16 shadow-[0_30px_100px_rgba(0,0,0,0.6)] relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-blue-600/5 blur-[80px] -mr-20 -mt-20 pointer-events-none" />
+            
+            <div className="mb-14 text-center lg:text-left">
+              <h2 className="text-4xl font-black text-white tracking-tighter uppercase mb-4">Authorize</h2>
+              <p className="text-[10px] font-black uppercase tracking-[0.25em]" style={{ color: '#4c7dd4' }}>Identify node synchronization</p>
             </div>
-            <h1 className="text-xl font-bold text-gray-900">Intelli-Credit</h1>
-          </div>
 
-          <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 p-8 sm:p-10">
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
-              <p className="text-gray-500 text-sm mt-1">Enter your credentials to access your account</p>
+            {/* ── Role Switcher ── */}
+            <div className="flex bg-white/5 p-1 rounded-3xl mb-10 border border-white/5 backdrop-blur-sm">
+              <button 
+                type="button" 
+                onClick={() => setRole('bank_officer')}
+                className={`flex-1 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${role === 'bank_officer' ? 'bg-blue-600 text-white shadow-[0_10px_20px_rgba(37,99,235,0.3)]' : 'text-white/30 hover:text-white/60'}`}
+              >
+                Officer
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setRole('applicant')}
+                className={`flex-1 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${role === 'applicant' ? 'bg-blue-600 text-white shadow-[0_10px_20px_rgba(37,99,235,0.3)]' : 'text-white/30 hover:text-white/60'}`}
+              >
+                Applicant
+              </button>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-xl mb-6">
+              <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-[10px] font-black uppercase tracking-widest px-6 py-4 rounded-2xl mb-10 animate-in fade-in slide-in-from-top-4">
                 {error}
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {/* Role Switch */}
+            <form onSubmit={handleSubmit} className="space-y-8">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Account Type</label>
-                <select
-                  className="auth-input"
-                  value={role}
-                  onChange={e => setRole(e.target.value)}
-                >
-                  <option value="applicant">Applicant</option>
-                  <option value="bank_officer">Bank Officer</option>
-                </select>
-              </div>
-              {/* Email */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Email address</label>
-                <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <label className="block text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-3 ml-1">Access Protocol ({role === 'bank_officer' ? 'Officer' : 'Applicant'})</label>
+                <div className="relative group">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 transition-colors group-focus-within:text-blue-500 text-white/20">
+                    <Mail className="h-5 w-5" />
+                  </div>
                   <input
                     type="email"
                     required
-                    className="auth-input pl-10"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@company.com"
+                    className="w-full bg-white/5 border border-white/5 rounded-[24px] pl-14 pr-6 py-5 text-sm font-black text-white outline-none transition-all placeholder:text-white/10 focus:border-blue-500 focus:bg-white/10"
+                    placeholder={role === 'bank_officer' ? "officer@bank.xyz" : "applicant@corp.xyz"}
+                    value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })}
                   />
                 </div>
               </div>
 
-              {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
-                <div className="relative">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <label className="block text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-3 ml-1">Security Cipher (Key)</label>
+                <div className="relative group">
+                  <div className="absolute left-5 top-1/2 -translate-y-1/2 transition-colors group-focus-within:text-blue-500 text-white/20">
+                    <Lock className="h-5 w-5" />
+                  </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
-                    className="auth-input pl-10 pr-10"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    className="w-full bg-white/5 border border-white/5 rounded-[24px] pl-14 pr-16 py-5 text-sm font-black text-white outline-none transition-all placeholder:text-white/10 focus:border-blue-500 focus:bg-white/10"
+                    placeholder="••••••••••••"
+                    value={form.password}
+                    onChange={e => setForm({ ...form, password: e.target.value })}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                    tabIndex={-1}
+                    className="absolute right-5 top-1/2 -translate-y-1/2 text-white/10 hover:text-white transition-all p-2"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
                 </div>
               </div>
 
-              {/* Remember & Forgot */}
-              <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={remember}
-                    onChange={(e) => setRemember(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-300 text-[#0A1F44] focus:ring-[#0A1F44]"
-                  />
-                  <span className="text-sm text-gray-600">Remember me</span>
-                </label>
-                <button type="button" className="text-sm font-medium text-[#0A1F44] hover:text-[#152D5B] transition-colors">
-                  Forgot password?
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6 rounded-[28px] text-[11px] font-black uppercase tracking-[0.4em] transition-all flex items-center justify-center gap-4 relative overflow-hidden group shadow-[0_15px_40px_rgba(37,99,235,0.4)] active:scale-[0.98]"
+                  style={{ background: 'linear-gradient(135deg, #2563eb, #1e40af)' }}
+                >
+                  <span className="relative z-10">{loading ? 'Synchronizing...' : 'Establish Link'}</span>
+                  {!loading && <ChevronRight className="h-5 w-5 relative z-10 transition-transform group-hover:translate-x-1" />}
+                  <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </button>
               </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="auth-btn w-full flex items-center justify-center gap-2"
-              >
-                {loading ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Signing in...
-                  </span>
-                ) : (
-                  <>
-                    Sign In
-                    <ArrowRight className="h-4 w-4" />
-                  </>
-                )}
-              </button>
             </form>
 
-            <p className="text-center text-sm text-gray-500 mt-8">
-              New applicant?{' '}
-              <Link to="/register" className="font-semibold text-[#0A1F44] hover:text-[#152D5B] transition-colors">
-                Create an account
-              </Link>
-            </p>
+            <div className="mt-12 pt-8 border-t border-white/5 text-center">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-400 opacity-40">
+                New Identity Request?{' '}
+                <Link to="/register" className="text-white hover:text-blue-400 transition-all border-b border-white/20 hover:border-blue-400 ml-2">
+                  Initialize Profile
+                </Link>
+              </p>
+            </div>
           </div>
-
-          <p className="text-center text-xs text-gray-400 mt-6 tracking-wide uppercase">Secure Access Portal</p>
+          
+          <p className="text-center text-[9px] font-black text-white/10 mt-12 tracking-[0.5em] uppercase">SYSTEM CORE V4.2.1 · LIVE STATUS: OPTIMAL</p>
         </div>
       </div>
     </div>

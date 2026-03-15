@@ -12,7 +12,15 @@ export function AuthProvider({ children }) {
     const savedUser = localStorage.getItem('user');
     if (token && savedUser) {
       try {
-        setUser(JSON.parse(savedUser));
+        const parsedUser = JSON.parse(savedUser);
+        // Robust check: valid user must be an object and have a role
+        if (parsedUser && typeof parsedUser === 'object' && parsedUser.role) {
+          setUser(parsedUser);
+        } else {
+          // If data is corrupt, clear everything to avoid loops
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
       } catch {
         localStorage.removeItem('token');
         localStorage.removeItem('user');

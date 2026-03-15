@@ -68,5 +68,7 @@ export const getRiskDashboardSummary = () =>
   api.get('/risk-intelligence/dashboard/summary');
 export const runWhatIfSimulation = (id, params) =>
   api.post(`/risk-intelligence/${id}/simulate`, params);
+export const runDigitalTwinSimulation = (id, params) =>
+  api.post(`/risk-intelligence/${id}/digital-twin`, params);
 
 export default api;
